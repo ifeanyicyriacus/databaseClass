@@ -1,4 +1,3 @@
-SHOW databases;
 use cape_codd;
 
 /* *** Questions 2.17 *** */
@@ -27,6 +26,11 @@ SELECT * FROM INVENTORY WHERE QuantityOnHand = 0;
 
 /* *** Questions 2.25 *** */
 SELECT SKU, SKU_Description, WarehouseID FROM INVENTORY WHERE QuantityOnHand = 0 ORDER BY WarehouseID;
+
+/* *** Questions 2.26 *** */
+SELECT SKU, SKU_Description, WarehouseID FROM INVENTORY WHERE QuantityOnHand > 0 ORDER BY WarehouseID DESC, SKU;
+
+/* *** Questions 2.27 *** */
 
 
 

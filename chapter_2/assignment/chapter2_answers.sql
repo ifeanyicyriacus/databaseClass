@@ -65,8 +65,38 @@ SELECT MAX(QuantityOnHand) AS MaxQuantityOnHand  FROM INVENTORY;
 
 /* *** Questions 2.35 *** */
 /*Explain the difference between the SQL built-in functions COUNT and SUM.
-	COUNT: this is used to count the number of rows in column, a roll is counted if it has a non-null value
-	
-    
+	COUNT: this is used to count the number of rows returned in column, a roll is counted if it has a non-null value
+	SUM: Returnes the sum, If the return set has no rows, SUM() returns NULL
 */
 
+/* *** Questions 2.36 *** */
+SELECT WarehouseID, sum(QuantityOnHand) as TotalItemsOnHand  FROM INVENTORY
+group by WarehouseID
+order by TotalItemsOnHand desc;
+
+/* *** Questions 2.37 *** */
+select WarehouseID, sum(QuantityOnHand) as TotalItemsOnHandLT3 from INVENTORY
+where QuantityOnHand < 3
+group by WarehouseID
+order by TotalItemsOnHandLT3 desc;
+
+/* *** Questions 2.38 *** */
+select WarehouseID, sum(QuantityOnHand) as TotalItemsOnHandLT3 from INVENTORY
+where QuantityOnHand < 3
+group by WarehouseID
+having TotalItemsOnHandLT3 = 2
+order by TotalItemsOnHandLT3 desc;
+
+/* *** Questions 2.39 *** */
+/* In your answer to Review Question 2.38, was the WHERE clause or the HAVING 
+	clause applied first? Why?
+	
+    Answer:
+    The ware clause was applied before the `group by` and `having` beacuse, 
+    i want the where clause to take effect before the grouping/ grouping sum aggregation
+    while the having is after the group by to pass row filtering condition after it get aggregated in groups, 
+    usually on condensed/evaluated column 
+*/
+
+
+/* *** Questions 2.40 *** */

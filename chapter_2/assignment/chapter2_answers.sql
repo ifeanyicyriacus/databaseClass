@@ -96,7 +96,57 @@ order by TotalItemsOnHandLT3 desc;
     i want the where clause to take effect before the grouping/ grouping sum aggregation
     while the having is after the group by to pass row filtering condition after it get aggregated in groups, 
     usually on condensed/evaluated column 
+    The SQL WHERE clause specifies which rows will be used to determine the groups.
+	The SQL HAVING clause specifies which groups will be used in the final result.
 */
 
 
+/* *** Questions 2.40 (using the forbidden in)*** */
+select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
+where INVENTORY.WarehouseID in (select WarehouseID
+from WAREHOUSE
+where WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago');
+
 /* *** Questions 2.40 *** */
+select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
+where WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago';
+
+/* *** Questions 2.41 (using the forbidden in)*** */
+select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
+where INVENTORY.WarehouseID in (
+select WAREHOUSE.WarehouseID from WAREHOUSE 
+where  WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago' );
+
+/* *** Questions 2.42 *** */
+select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
+where WarehouseCity <> 'Atlanta' or WarehouseCity <> 'Bangor' or WarehouseCity <> 'Chicago';
+
+/* *** Questions 2.43 *** */
+select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
+where WarehouseCity not in (select WarehouseCity from WAREHOUSE
+where WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago' );
+
+/* *** Questions 2.44 *** */
+select distinct concat(SKU_Description, ' is located in ', WarehouseCity) as ItemLocation from INVENTORY, WAREHOUSE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

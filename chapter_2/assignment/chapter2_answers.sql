@@ -169,8 +169,37 @@ on		i.WarehouseID = w.WarehouseID
 where	w.Manager  LIKE 'Lucille Smith'
 group by i.WarehouseID;
 
+/* *** Questions 2.51 *** */
+select 	i.WarehouseID, w.WarehouseCity, w.WarehouseState, w.Manager, i.SKU, i.SKU_Description, i.QuantityOnHand
+from 	INVENTORY as i join WAREHOUSE as w
+on		i.WarehouseID = w.WarehouseID
+where	w.Manager  LIKE 'Lucille Smith';
 
-select * from WAREHOUSE;
+/* *** Questions 2.52 *** */
+select WarehouseID, sum(QuantityOnOrder) as TotalItemsOnOrder, sum(QuantityOnHand) as TotalItemsOnHand
+from INVENTORY
+group by WarehouseID, QuantityOnOrder;
+
+/* *** Questions 2.53 *** */
+/* Explain why you cannot use a subquery in your answer to Review Question 2.52.
+Answer: Only a single table is concern.
+*/
+
+/* *** Questions 2.54 *** */
+/* Explain how subqueries and joins differ.
+ANSWER: 
+	1.	subquery provides a filter to its parent table, to fine tune its output.
+		it does not add to the table
+	2. The join adds to an adjacent table
+		by: 
+			- providing more column
+            - and by default increasing the number of rows (which is usuallly the product of 2 or more table rows
+*/
+
+/* *** Questions 2.55 *** */
+select i.WarehouseID, WarehouseCity, WarehouseState, Manager, SquareFeet, SKU, SKU_Description, QuantityOnHand, QuantityOnOrder 
+from WAREHOUSE join INVENTORY as i
+
 
 
 

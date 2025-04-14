@@ -115,27 +115,62 @@ where WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = '
 select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
 where INVENTORY.WarehouseID in (
 select WAREHOUSE.WarehouseID from WAREHOUSE 
-where  WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago' );
+where  WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago' )
+and WAREHOUSE.WarehouseID = INVENTORY.WarehouseID;
 
 /* *** Questions 2.42 *** */
 select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
-where WarehouseCity <> 'Atlanta' or WarehouseCity <> 'Bangor' or WarehouseCity <> 'Chicago';
+where WAREHOUSE.WarehouseID = INVENTORY.WarehouseID
+and WarehouseCity <> 'Atlanta' and WarehouseCity <> 'Bangor' and WarehouseCity <> 'Chicago';
 
 /* *** Questions 2.43 *** */
 select SKU, SKU_Description, INVENTORY.WarehouseID, WarehouseCity, WarehouseState from INVENTORY, WAREHOUSE
-where WarehouseCity not in (select WarehouseCity from WAREHOUSE
+where WAREHOUSE.WarehouseID = INVENTORY.WarehouseID
+and WarehouseCity not in (select WarehouseCity from WAREHOUSE
 where WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago' );
 
 /* *** Questions 2.44 *** */
 select distinct concat(SKU_Description, ' is located in ', WarehouseCity) as ItemLocation from INVENTORY, WAREHOUSE;
 
+/* *** Questions 2.45 *** */
+SELECT 	SKU, SKU_Description, WarehouseID
+FROM	INVENTORY
+WHERE 	WarehouseID IN (SELECT	WarehouseID
+        FROM	WAREHOUSE
+        WHERE	Manager LIKE 'Lucille Smith');
+
+/* *** Questions 2.46 *** */
+SELECT 	SKU, SKU_Description, WAREHOUSE.WarehouseID 
+from INVENTORY join WAREHOUSE
+where INVENTORY.WarehouseID = WAREHOUSE.WarehouseID
+and WAREHOUSE.Manager  LIKE 'Lucille Smith';
+
+/* *** Questions 2.47 *** */
+SELECT 	SKU, SKU_Description, WAREHOUSE.WarehouseID 
+from INVENTORY join WAREHOUSE
+on INVENTORY.WarehouseID = WAREHOUSE.WarehouseID
+and WAREHOUSE.Manager  LIKE 'Lucille Smith';
+
+/* *** Questions 2.48 *** */
+select i.WarehouseID, avg(QuantityOnHand) from INVENTORY as i
+where i.WarehouseID in (select w.WarehouseID from WAREHOUSE as w
+	where w.Manager  LIKE 'Lucille Smith')
+    group by i.WarehouseID;
+
+/* *** Questions 2.49 *** */
+select 	i.WarehouseID, avg(QuantityOnHand) from INVENTORY as i join WAREHOUSE as w
+where 	i.WarehouseID = w.WarehouseID and
+		w.Manager  LIKE 'Lucille Smith'
+group by i.WarehouseID;
+
+/* *** Questions 2.50 *** */
+select 	i.WarehouseID, avg(QuantityOnHand) from INVENTORY as i join WAREHOUSE as w
+on		i.WarehouseID = w.WarehouseID
+where	w.Manager  LIKE 'Lucille Smith'
+group by i.WarehouseID;
 
 
-
-
-
-
-
+select * from WAREHOUSE;
 
 
 

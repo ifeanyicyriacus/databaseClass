@@ -41,18 +41,49 @@ select count(*) from mdc_ch02.CUSTOMER;
 select LastName, FirstName from mdc_ch02.CUSTOMER
 group by LastName, FirstName;
 
+-- L
+select LastName, FirstName, count(*) from mdc_ch02.CUSTOMER
+group by LastName, FirstName;
+
+-- M
+select LastName, FirstName, Phone from mdc_ch02.CUSTOMER
+where CUSTOMER.CustomerID in (
+	select INVOICE.CustomerID from INVOICE
+    where INVOICE.TotalAmount > 100.00
+)
+order by LastName asc, FirstName desc;
 
 
+-- N
+select LastName, FirstName, Phone from mdc_ch02.CUSTOMER join mdc_ch02.INVOICE
+where mdc_ch02.CUSTOMER.CustomerID = mdc_ch02.INVOICE.CustomerID
+and mdc_ch02.INVOICE.TotalAmount > 100.00
+order by LastName asc, FirstName desc;
 
+-- O
+select LastName, FirstName, Phone from mdc_ch02.CUSTOMER join mdc_ch02.INVOICE
+on mdc_ch02.CUSTOMER.CustomerID = mdc_ch02.INVOICE.CustomerID
+where mdc_ch02.INVOICE.TotalAmount > 100.00
+order by LastName asc, FirstName desc;
 
+-- P
+select LastName, FirstName, Phone from CUSTOMER
+where CUSTOMER.CustomerID in (
+	select INVOICE.CustomerID from INVOICE
+    where INVOICE.InvoiceNumber in (
+		select INVOICE_ITEM.InvoiceNumber from INVOICE_ITEM
+        where Item = "Dress Shirt"
+    )
+) order by LastName asc, Firstname desc;
 
+-- Q
+select LastName, FirstName, Phone from CUSTOMER join INVOICE join INVOICE_ITEM
+on CUSTOMER.CustomerID = INVOICE.CustomerID 
+and INVOICE.InvoiceNumber = INVOICE_ITEM.InvoiceNumber
+where INVOICE_ITEM.item = "Dress Shirt"
+order by LastName asc, Firstname desc;
 
-
-
-
-
-
-
+-- R
 
 
 

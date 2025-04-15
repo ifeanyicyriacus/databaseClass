@@ -198,19 +198,33 @@ ANSWER:
 
 /* *** Questions 2.55 *** */
 select i.WarehouseID, WarehouseCity, WarehouseState, Manager, SquareFeet, SKU, SKU_Description, QuantityOnHand, QuantityOnOrder 
-from WAREHOUSE join INVENTORY as i
+from WAREHOUSE join INVENTORY as i;
+
+/* *** Questions 2.56 *** */
+select SKU, SKU_Description, Department
+from CATALOG_SKU_2016 join CATALOG_SKU_2017;
 
 
+/* *** Questions 2.57 *** */
+select SKU, SKU_Description, Department from CATALOG_SKU_2016 
+union all
+select SKU, SKU_Description, Department from CATALOG_SKU_2017
+where CatalogPage is not null;
+
+/* *** Questions 2.58 *** */
+select SKU, SKU_Description, Department from CATALOG_SKU_2016 
+INTERSECT
+select SKU, SKU_Description, Department from CATALOG_SKU_2017;
 
 
+/* *** Questions 2.59 *** */
+select SKU, SKU_Description, Department from CATALOG_SKU_2016 
+intersect 
+select SKU, SKU_Description, Department from CATALOG_SKU_2017
+where CatalogPage is not null;
 
 
-
-
-
-
-
-
-
-
-
+/* *** Questions 2.60 *** */
+select SKU, SKU_Description, Department from CATALOG_SKU_2016
+except
+select SKU, SKU_Description, Department from CATALOG_SKU_2017;

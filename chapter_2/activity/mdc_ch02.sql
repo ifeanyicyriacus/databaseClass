@@ -78,13 +78,23 @@ where CUSTOMER.CustomerID in (
 
 -- Q
 select LastName, FirstName, Phone from CUSTOMER join INVOICE join INVOICE_ITEM
+where CUSTOMER.CustomerID = INVOICE.CustomerID 
+and INVOICE.InvoiceNumber = INVOICE_ITEM.InvoiceNumber
+and INVOICE_ITEM.item = "Dress Shirt"
+order by LastName asc, Firstname desc;
+
+-- R
+select LastName, FirstName, Phone from CUSTOMER join INVOICE join INVOICE_ITEM
 on CUSTOMER.CustomerID = INVOICE.CustomerID 
 and INVOICE.InvoiceNumber = INVOICE_ITEM.InvoiceNumber
 where INVOICE_ITEM.item = "Dress Shirt"
 order by LastName asc, Firstname desc;
 
--- R
 
+-- S
+select 	LastName as CustomerLastName, FirstName as CustomerFirstName, 
+		ReferredByLastName, ReferredByFirstName from CUSTOMER
+        
 
 
 
